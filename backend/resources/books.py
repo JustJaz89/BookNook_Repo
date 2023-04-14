@@ -30,4 +30,8 @@ class UserFavoritesResource(Resource):
         new_favorite.user_id = user_id
         db.session.add(new_favorite)
         db.session.commit()
-        return favorite_schema.dump(new_favorite)
+        return favorite_schema.dump(new_favorite), 201
+    
+class GetBookInformationResource(Resource):
+    def get(self):
+        return
