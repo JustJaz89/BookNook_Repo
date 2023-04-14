@@ -34,4 +34,4 @@ class UserFavoritesResource(Resource):
     
 class GetBookInformationResource(Resource):
     def get(self):
-        return
+        pass
