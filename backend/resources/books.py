@@ -35,13 +35,19 @@ class UserFavoritesResource(Resource):
 class GetBookInformationResource(Resource):
     def get(self, book_id):
         reviews = Review.query.filter_by(book_id=book_id)
-        avg_rating = round(sum(review.rating for review in reviews) / len(reviews), 2)
-        user_id = request.current.user_id
-        is_favorited = Favorite.query.filter_by(book_id=book_id, user_id=user_id).first() is not None
+        reviews = reviews_schema.dump(reviews)
+        avg_rating = round(sum(review['rating'] for review in reviews) / len(reviews), 2)
         response = {
              "book id": book_id,
             "reviews": reviews,
             "average_rating": avg_rating,
-            "is_favorited": is_favorited
         }
+        try:
+            verify_jwt_in_request()
+            user_id = get_jwt_identity()
+            is_favorited = Favorite.query.filter_by(book_id=book_id, user_id=user_id).first() is not None
+            response['is_favorited'] = is_favorited
+        except:
+            pass
+        
         return response, 200
