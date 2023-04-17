@@ -1,0 +1,398 @@
+{
+	"info": {
+		"_postman_id": "ecbe8642-a919-401c-a4ba-defba383f830",
+		"name": "Flask_JWT_Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26272636"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"email\": \"bob@bob.bob\",\r\n    \"password\": \"password\",\r\n    \"first_name\": \"bob\",\r\n    \"last_name\": \"bobson\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/auth/register",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login_User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"bob\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/auth/login",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Post User Car (Protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MzAyNDIwMiwianRpIjoiMTdmNGI3MGMtYTJjYi00MDcwLWE2Y2YtNGEzNDBhZGE0NTU2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE2NzMwMjQyMDIsImV4cCI6MTY3MzYyOTAwMn0.RkYdHAFagVCdtjTdGpyiDNfaTRJaufJR8AVUkDYNbCk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"make\": \"Kia\",\r\n    \"model\": \"Sorento\",\r\n    \"year\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/user_cars",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user_cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Cars (Protected)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3MzAyNDIwMiwianRpIjoiMTdmNGI3MGMtYTJjYi00MDcwLWE2Y2YtNGEzNDBhZGE0NTU2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE2NzMwMjQyMDIsImV4cCI6MTY3MzYyOTAwMn0.RkYdHAFagVCdtjTdGpyiDNfaTRJaufJR8AVUkDYNbCk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"make\": \"totya\",\r\n    \"model\": \"Corolla\",\r\n    \"year\": \"2020\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/user_cars",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"user_cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Cars (Unprotected)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"make\": \"totya\",\r\n    \"model\": \"Corolla\",\r\n    \"year\": \"2020\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/cars",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cars By Make (Unprotected)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NDE2MDc5OSwianRpIjoiYjI4MTk4YTEtYTU5Yi00MGNlLTg3MDEtMDhiNTliYzQzOGY3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE2NzQxNjA3OTksImV4cCI6MTY3NDc2NTU5OSwiaWQiOjEsInVzZXJuYW1lIjoibW9icmllbiIsImZpcnN0X25hbWUiOiJNaWxlcyJ9.Uksfy1L7nnwCOnoFWYvv1cwEeB4BsZuL0KgZBr3kSBg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book_id\": \"RXPjuQAACAAJ\",\r\n    \"text\": \"Great book\",\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/api/cars?make=kia",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"cars"
+							],
+							"query": [
+								{
+									"key": "make",
+									"value": "kia"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Post Review (Protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTc2Mjg5NywianRpIjoiZWNiYmQ0ZTYtMWQwMS00OTllLTk3MjUtYTVlMDI4YTMyMjllIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjYiLCJuYmYiOjE2ODE3NjI4OTcsImV4cCI6MTY4MjM2NzY5NywiaWQiOjYsInVzZXJuYW1lIjoiYm9iIiwiZmlyc3RfbmFtZSI6ImJvYiJ9.Y1nKnrpgDYlFO4b90_JWGAYVzin_3WCjxPqKTSJxOlo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Harry Potter sux\",\r\n    \"book_id\": \"123\",\r\n    \"rating\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/review",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorite (Protected)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTc2Mjg5NywianRpIjoiZWNiYmQ0ZTYtMWQwMS00OTllLTk3MjUtYTVlMDI4YTMyMjllIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjYiLCJuYmYiOjE2ODE3NjI4OTcsImV4cCI6MTY4MjM2NzY5NywiaWQiOjYsInVzZXJuYW1lIjoiYm9iIiwiZmlyc3RfbmFtZSI6ImJvYiJ9.Y1nKnrpgDYlFO4b90_JWGAYVzin_3WCjxPqKTSJxOlo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:5000/api/favorite/",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"favorite",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Favorite (Protected)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTc2Mjg5NywianRpIjoiZWNiYmQ0ZTYtMWQwMS00OTllLTk3MjUtYTVlMDI4YTMyMjllIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjYiLCJuYmYiOjE2ODE3NjI4OTcsImV4cCI6MTY4MjM2NzY5NywiaWQiOjYsInVzZXJuYW1lIjoiYm9iIiwiZmlyc3RfbmFtZSI6ImJvYiJ9.Y1nKnrpgDYlFO4b90_JWGAYVzin_3WCjxPqKTSJxOlo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book_id\": \"1\",\r\n    \"title\": \"HP and the Sorcerer's Stone\",\r\n    \"thumbnail_url\": \"book1.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:5000/api/favorite",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"favorite"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTc2Mjg5NywianRpIjoiZWNiYmQ0ZTYtMWQwMS00OTllLTk3MjUtYTVlMDI4YTMyMjllIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjYiLCJuYmYiOjE2ODE3NjI4OTcsImV4cCI6MTY4MjM2NzY5NywiaWQiOjYsInVzZXJuYW1lIjoiYm9iIiwiZmlyc3RfbmFtZSI6ImJvYiJ9.Y1nKnrpgDYlFO4b90_JWGAYVzin_3WCjxPqKTSJxOlo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTc2Mjg5NywianRpIjoiZWNiYmQ0ZTYtMWQwMS00OTllLTk3MjUtYTVlMDI4YTMyMjllIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjYiLCJuYmYiOjE2ODE3NjI4OTcsImV4cCI6MTY4MjM2NzY5NywiaWQiOjYsInVzZXJuYW1lIjoiYm9iIiwiZmlyc3RfbmFtZSI6ImJvYiJ9.Y1nKnrpgDYlFO4b90_JWGAYVzin_3WCjxPqKTSJxOlo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:5000/api/1?",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
