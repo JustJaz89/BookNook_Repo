@@ -91,4 +91,4 @@ class FavoriteSchema(ma.Schema):
         return Favorite(**data)
     
 favorite_schema = FavoriteSchema()
-favorties_schema = FavoriteSchema(many=True)
+favorites_schema = FavoriteSchema(many=True)

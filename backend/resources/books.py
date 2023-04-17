@@ -2,7 +2,7 @@ from flask import request
 from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
 from flask_restful import Resource
 from database.models import db, Review, Favorite
-from database.schemas import review_schema, reviews_schema, favorite_schema, favorties_schema
+from database.schemas import review_schema, reviews_schema, favorite_schema, favorites_schema
 
 class UserReviewsResource(Resource):
     @jwt_required()
@@ -20,7 +20,7 @@ class UserFavoritesResource(Resource):
     def get(self):
         user_id = get_jwt_identity()
         user_favorites = Favorite.query.filter_by(user_id=user_id)
-        return favorties_schema.dump(user_favorites), 200
+        return favorites_schema.dump(user_favorites), 200
     
     @jwt_required()
     def post(self):
@@ -34,14 +34,15 @@ class UserFavoritesResource(Resource):
     
 class GetBookInformationResource(Resource):
     def get(self, book_id):
-        reviews = Review.query.filter_by(book_id=book_id)
+        reviews = Review.query.get_or_404(book_id)
         avg_rating = round(sum(review.rating for review in reviews) / len(reviews), 2)
         user_id = request.current.user_id
         is_favorited = Favorite.query.filter_by(book_id=book_id, user_id=user_id).first() is not None
         response = {
-             "book id": book_id,
+            "book_id": book_id,
             "reviews": reviews,
             "average_rating": avg_rating,
             "is_favorited": is_favorited
         }
+        
         return response, 200
