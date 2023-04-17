@@ -63,5 +63,4 @@ def create_routes():
     api.add_resource(GetBookInformationResource, '/api/<int:book_id>')
     api.add_resource(ReviewDetailResource, '/api/detail')
 
-
     return api
