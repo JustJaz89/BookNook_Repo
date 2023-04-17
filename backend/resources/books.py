@@ -33,5 +33,25 @@ class UserFavoritesResource(Resource):
         return favorite_schema.dump(new_favorite), 201
     
 class GetBookInformationResource(Resource):
-    def get(self):
-        pass
+    def get(self, book_id):
+
+        reviews = book.get("reviews", [])
+        avg_rating = round(sum(review.rating for review in reviews) / len(reviews), 2)
+        user_id = request.args.get("user_id")
+        if user_id:
+            user = users.get(int(user_id))
+            if user:
+                is_favorited = book_id in user.get("favorites", [])
+            else:
+                is_favorited = False
+        else:
+            is_favorited = False
+        
+        response = {
+            "book_id": book_id,
+            "reviews": reviews,
+            "average_rating": avg_rating,
+            "is_favorited": is_favorited
+        }
+        
+        return response, 200
