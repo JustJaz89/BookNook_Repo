@@ -39,6 +39,7 @@ class GetBookInformationResource(Resource):
         user_id = request.current.user_id
         is_favorited = Favorite.query.filter_by(book_id=book_id, user_id=user_id).first() is not None
         response = {
+             "book id": book_id,
             "reviews": reviews,
             "average_rating": avg_rating,
             "is_favorited": is_favorited
