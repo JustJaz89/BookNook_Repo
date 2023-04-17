@@ -51,3 +51,29 @@ class GetBookInformationResource(Resource):
             pass
         
         return response, 200
+    
+class ReviewDetailResource(Resource):
+    @jwt_required()
+    def put(self, review_id):
+        review = Review.query.get(review_id)
+        if not review:
+            return {'message': 'Review not found'}, 404
+
+        data = request.get_json()
+        review.title = data.get('title', review.title)
+        review.content = data.get('content', review.content)
+
+        db.session.commit()
+
+        return review.serialize(), 200
+    
+    @jwt_required()
+    def delete(self, review_id):
+        review = Review.query.get(review_id)
+        if not review:
+            return {'message': 'Review not found'}, 404
+
+        db.session.delete(review)
+        db.session.commit()
+
+        return '', 204
