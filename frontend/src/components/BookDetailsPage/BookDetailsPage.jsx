@@ -12,7 +12,7 @@ const BookDetailsPage = () => {
     }, []);
     const fetchBookDetails = async () => {
         try{
-            let response = await axios.get(`${bookName}`);
+            let response = await axios.get(`https://www.googleapis.com/books/v1/volumes/${bookName}`);
         setBookDetail(response.data);
         setIsLoading(False);
         } catch(error){
