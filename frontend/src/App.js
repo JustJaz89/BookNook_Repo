@@ -28,6 +28,7 @@ function App() {
           }
         />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
       <Footer />
@@ -36,3 +37,6 @@ function App() {
 }
 
 export default App;
+
+// start with music library format - "display book page" - app.js
+// onClick - send info on book
