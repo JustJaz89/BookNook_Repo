@@ -9,19 +9,20 @@ const SearchPage = () => {
     const [searchResults, setSearchResults] = useState([]);
 
 
-    const fetchBook = async () => {
+    const fetchBooks = async () => {
         try {
             let lowerCaseSearchTerm = searchTerm.toLowerCase();
             let response = await axios.get(
-                `https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`
-                );
+                `https://www.googleapis.com/books/v1/volumes?q=${lowerCaseSearchTerm}`
+            );
+            console.log(response.data.books);
         } catch (error) {}
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetchBook();
-        alert(`You search for ${searchTerm}!`);
+        fetchBooks();
+        alert(`You searched for ${searchTerm}!`);
     };
 
     return (
@@ -30,6 +31,7 @@ const SearchPage = () => {
             <SearchBar
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
+                setSearchResults={setSearchResults}
                 handleSubmit={handleSubmit}
             />
             <ResultsList searchResults={searchResults} />
