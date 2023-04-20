@@ -6,7 +6,9 @@ import "./App.css";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import Search from "./pages/SearchPage/SearchPage";
+import BookDetailsPage from "./components/BookDetailsPage/BookDetailsPage";
+import SearchPage from "./components/SearchPage/SearchPage";
+
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -18,19 +20,20 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <Routes>
         <Route
           path="/"
           element={
             <PrivateRoute>
-              <HomePage />
+              <HomePage/>
             </PrivateRoute>
           }
         />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<SearchPage/>} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path='/details/:bookName/' element={<BookDetailsPage/>} />
       </Routes>
       <Footer />
     </div>
@@ -39,5 +42,3 @@ function App() {
 
 export default App;
 
-// start with music library format - "display book page" - app.js
-// onClick - send info on book

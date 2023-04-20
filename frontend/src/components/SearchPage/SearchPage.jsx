@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import SearchBar from "./SearchBar";
-import React from 'react';
 import ResultsList from "./ResultsList";
 import axios from "axios"
 
@@ -15,7 +14,8 @@ const SearchPage = () => {
             let response = await axios.get(
                 `https://www.googleapis.com/books/v1/volumes?q=${lowerCaseSearchTerm}`
             );
-            console.log(response.data.books);
+            console.log(response.data)
+            setSearchResults(response.data.items);
         } catch (error) {}
     };
 
@@ -31,8 +31,8 @@ const SearchPage = () => {
             <SearchBar
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
-                setSearchResults={setSearchResults}
                 handleSubmit={handleSubmit}
+
             />
             <ResultsList searchResults={searchResults} />
         </div>
