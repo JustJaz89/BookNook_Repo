@@ -1,8 +1,23 @@
-from flask import request
+from flask import Flask, request
 from flask_jwt_extended import jwt_required, get_jwt_identity, verify_jwt_in_request
 from flask_restful import Resource
 from database.models import db, Review, Favorite
 from database.schemas import review_schema, reviews_schema, favorite_schema, favorites_schema
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
+
+
+app = Flask(__name__)
+
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
+api = Api(app)
+CORS(app)
+Migrate(app, db)
+
 
 class UserReviewsResource(Resource):
     @jwt_required()
@@ -77,3 +92,8 @@ class ReviewDetailResource(Resource):
         db.session.commit()
 
         return '', 204
+
+
+# Routes
+api.add_resource(UserReviewsResource, '/api/reviews/')
+api.add_resource(GetBookInformationResource, '/api/reviews/:<book_id>')

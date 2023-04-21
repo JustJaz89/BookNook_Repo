@@ -14,10 +14,12 @@ import SearchPage from "./components/SearchPage/SearchPage";
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 
+
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
+
   return (
     <div>
       <Navbar/>

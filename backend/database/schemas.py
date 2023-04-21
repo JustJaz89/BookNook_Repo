@@ -92,3 +92,5 @@ class FavoriteSchema(ma.Schema):
     
 favorite_schema = FavoriteSchema()
 favorites_schema = FavoriteSchema(many=True)
+
+

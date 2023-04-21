@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
+import AddNewReview from './ReviewList';
 
 const BookDetailsPage = () => {
     const {bookName} = useParams();
@@ -23,8 +24,8 @@ const BookDetailsPage = () => {
         console.log(response.data)
         setBookDetail(response.data);
         setIsLoading(false);
-        setReviews(response.data.reviews);
-        setAverageRating(calculateAverageRating(response.data.reviews));
+        // setReviews(response.data.reviews);
+        // setAverageRating(calculateAverageRating(response.data.reviews));
         setIsFavorite(response.data.favorite);
         // setIsFavorite(response.data.favorite.includes(currentUserId));
         } catch(error){
@@ -51,6 +52,18 @@ const BookDetailsPage = () => {
         favoriteBook(bookName);
     }
 
+    async function getAllReviews() {
+        let response = await axios.get('http://127.0.0.1:5000/api/reviews/');
+        setReviews(response.data);
+      }
+
+    async function addNewReview(newReview) {
+        let response = await axios.post('http://127.0.0.1:5000/api/reviews/', newReview);
+        if(response.status === 201) {
+          await getAllReviews();
+        }
+      }
+
     return (
         <div className="container">
 
@@ -73,7 +86,7 @@ const BookDetailsPage = () => {
                 <h5> Description: {bookDetail.volumeInfo?.description}</h5>
                 <br></br>
                 <h3>Reviews</h3>
-                <p>Average Rating: {averageRating}</p>
+                <AddNewReview addNewReviewProperty={addNewReview} />
                 <button onClick={handleFavoriteClick}>Favorite This Book</button>
                 <p>Favorite: {isFavorite ? 'Yes' : 'No'}</p>
                 {/* <ul>
