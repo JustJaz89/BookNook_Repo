@@ -6,6 +6,10 @@ const BookDetailsPage = () => {
     const {bookName} = useParams();
     const [bookDetail, setBookDetail] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [reviews, setReviews] = useState([]);
+    const [averageRating, setAverageRating] = useState(0);
+    const [isFavorite, setIsFavorite] = useState(false);
+    // const currentUserId = {currentUserId}
 
     useEffect(() => {
         fetchBookDetails();
@@ -19,10 +23,19 @@ const BookDetailsPage = () => {
         console.log(response.data)
         setBookDetail(response.data);
         setIsLoading(false);
+        setReviews(response.data.reviews);
+        setAverageRating(calculateAverageRating(response.data.reviews));
+        setIsFavorite(response.data.favorite);
+        // setIsFavorite(response.data.favorite.includes(currentUserId));
         } catch(error){
             console.log("Error in fetchBookDetails:", error)
         }
     };
+
+    function calculateAverageRating(reviews) {
+        const totalRating = reviews.reduce((acc, curr) => acc + curr.score, 0);
+        return reviews.length > 0 ? Math.round(totalRating / reviews.length) : 0;
+    }
 
     return (
         <div className="container">
@@ -31,7 +44,8 @@ const BookDetailsPage = () => {
                 <div>Loading...</div>
             ) : (
             <div>
-                <h1>{bookDetail.volumeInfo?.title} Details!</h1>
+                <h1>{bookDetail.volumeInfo?.title}</h1>
+                <h2>Book Details</h2>
                 <h3> Title: {bookDetail.volumeInfo?.title} </h3>
                 {bookDetail.volumeInfo?.imageLinks?.smallThumbnail && (
                 <img 
@@ -39,6 +53,20 @@ const BookDetailsPage = () => {
                     alt={`${bookDetail.volumeInfo?.title} cover`}
                 />
                 )}
+                <h3> Author: {bookDetail.volumeInfo?.authors}</h3>
+                <h5> Description: {bookDetail.volumeInfo?.description}</h5>
+                <h3>Reviews</h3>
+                <p>Average Rating: {averageRating}</p>
+                <p>Favorite: {isFavorite ? 'Yes' : 'No'}</p>
+                {/* <ul>
+                    {bookDetail.reviews.map(review => (
+                    <li key={review.id}>
+                        <p>User: {review.user}</p>
+                        <p>Rating: {review.rating}</p>
+                        <p>Comment: {review.comment}</p>
+                    </li>
+                    ))}
+                </ul> */}
             </div>
             )}
         </div>
