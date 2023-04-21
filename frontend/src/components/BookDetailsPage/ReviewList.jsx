@@ -10,11 +10,9 @@ const AddNewReview = (props) => {
     function handleSubmit(event) {
         event.preventDefault();
         let newReview = {
-            user: user,
-            book_id: book_id,
+            book_id: props.bookName,
             rating: rating,
             text: text,
-
         };
         console.log(newReview);
         props.addNewReviewProperty(newReview);
@@ -22,10 +20,6 @@ const AddNewReview = (props) => {
 
     return (
         <form onSubmit={handleSubmit} className ="form-grid">
-            <div className="form-group">
-                <label> User </label>
-                <input type="text" className="form-control" id="inputUser" placeholder="User" value={user} onChange={(event) => setUser(event.target.value)} />
-            </div>
             <div className="form-group">
                 <label> Book ID </label>
                 <input type="text" className="form-control" id="inputBook_id" placeholder="Book_id" value={book_id} onChange={(event) => setBook_id(event.target.value)} />

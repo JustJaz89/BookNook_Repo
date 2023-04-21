@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import AddNewReview from './ReviewList';
+import useAuth from '../../hooks/useAuth';
+
+
 
 const BookDetailsPage = () => {
     const {bookName} = useParams();
@@ -11,9 +14,10 @@ const BookDetailsPage = () => {
     const [averageRating, setAverageRating] = useState(0);
     const [isFavorite, setIsFavorite] = useState(false);
     // const currentUserId = {currentUserId}
-
+    const [user, token] = useAuth();
     useEffect(() => {
         fetchBookDetails();
+        getAllReviews();
     }, []);
 
     const fetchBookDetails = async () => {
@@ -38,8 +42,14 @@ const BookDetailsPage = () => {
         return reviews.length > 0 ? Math.round(totalRating / reviews.length) : 0;
     }
 
+    let favoriteDetails = {
+        book_id: bookName,
+        title: bookDetail.volumeInfo?.title,
+        thumbnail_url: bookDetail.volumeInfo?.imageLinks?.smallThumbnail,
+    };
+
     function favoriteBook(bookName) {
-        axios.post(`http://127.0.0.1:5000/api/review`, {bookName})
+        axios.post(`http://127.0.0.1:5000/api/favorite`, favoriteDetails, {headers: {Authorization: 'Bearer ' + token}})
         .then(response => {
             console.log(response.data);
         })
@@ -53,13 +63,13 @@ const BookDetailsPage = () => {
     }
 
     async function getAllReviews() {
-        let response = await axios.get('http://127.0.0.1:5000/api/reviews/');
+        let response = await axios.get(`http://127.0.0.1:5000/api/${bookName}`, {headers: {Authorization: 'Bearer ' + token}});
         setReviews(response.data);
       }
 
     async function addNewReview(newReview) {
-        let response = await axios.post('http://127.0.0.1:5000/api/reviews/', newReview);
-        if(response.status === 201) {
+        let response = await axios.post('http://127.0.0.1:5000/api/review', newReview, {headers: {Authorization: 'Bearer ' + token}});
+                if(response.status === 201) {
           await getAllReviews();
         }
       }
@@ -86,7 +96,7 @@ const BookDetailsPage = () => {
                 <h5> Description: {bookDetail.volumeInfo?.description}</h5>
                 <br></br>
                 <h3>Reviews</h3>
-                <AddNewReview addNewReviewProperty={addNewReview} />
+                <AddNewReview addNewReviewProperty={addNewReview} bookName={bookName}/>
                 <button onClick={handleFavoriteClick}>Favorite This Book</button>
                 <p>Favorite: {isFavorite ? 'Yes' : 'No'}</p>
                 {/* <ul>
