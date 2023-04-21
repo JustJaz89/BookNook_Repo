@@ -37,6 +37,20 @@ const BookDetailsPage = () => {
         return reviews.length > 0 ? Math.round(totalRating / reviews.length) : 0;
     }
 
+    function favoriteBook(bookName) {
+        axios.post(`http://127.0.0.1:5000/api/review`, {bookName})
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
+
+    function handleFavoriteClick() {
+        favoriteBook(bookName);
+    }
+
     return (
         <div className="container">
 
@@ -46,6 +60,7 @@ const BookDetailsPage = () => {
             <div>
                 <h1>{bookDetail.volumeInfo?.title}</h1>
                 <h2>Book Details</h2>
+                <br></br>
                 <h3> Title: {bookDetail.volumeInfo?.title} </h3>
                 {bookDetail.volumeInfo?.imageLinks?.smallThumbnail && (
                 <img 
@@ -54,9 +69,12 @@ const BookDetailsPage = () => {
                 />
                 )}
                 <h3> Author: {bookDetail.volumeInfo?.authors}</h3>
+                <br></br>
                 <h5> Description: {bookDetail.volumeInfo?.description}</h5>
+                <br></br>
                 <h3>Reviews</h3>
                 <p>Average Rating: {averageRating}</p>
+                <button onClick={handleFavoriteClick}>Favorite This Book</button>
                 <p>Favorite: {isFavorite ? 'Yes' : 'No'}</p>
                 {/* <ul>
                     {bookDetail.reviews.map(review => (
